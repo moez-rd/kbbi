@@ -5,7 +5,7 @@
         <HeaderTitle />
       </header>
       <main class="mb-60">
-        <SearchBar v-model="searchWord" @submit="search" />
+        <SearchBar v-model="entryWord" @submit="search" />
       </main>
 
       <footer class="py-8 text-center">
@@ -40,12 +40,12 @@ export default {
   components: { HeaderTitle, SearchBar },
   data () {
     return {
-      searchWord: ''
+      entryWord: ''
     }
   },
   methods: {
     search () {
-      this.$router.push({ name: 'entry', params: { entryName: this.searchWord } })
+      this.$router.push({ name: 'entry', params: { entryName: this.entryWord } })
     }
   }
 }

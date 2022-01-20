@@ -27,25 +27,27 @@
       </header>
       <div class="max-w-4xl mx-auto pb-20">
         <Spinner v-if="wait" />
-        <p v-else-if="error" class="text-gray-400 text-lg cursor-default">Terjadi kesalahan atau data tidak ditemukan</p>
+        <p v-else-if="error" class="text-gray-400 text-lg cursor-default">
+          Terjadi kesalahan atau data tidak ditemukan
+        </p>
         <EntrySection v-else :data="results" />
       </div>
       <Footer>
-        <p class="text-gray-200 text-sm font-bold">
+        <p class="text-gray-700 text-sm font-bold">
           Built with love by Moez |
           <a
             href="https://github.com/moez-rd/kbbi"
             class="hover:underline"
             target="_blank"
             ><i class="bi bi-github"></i> Github repository
-            <i class="bi bi-box-arrow-up-right text-primary-300"></i
+            <i class="bi bi-box-arrow-up-right text-gray-400"></i
           ></a>
           |
           <a
             href="https://github.com/btrianurdin/new-kbbi-api"
             class="hover:underline"
             target="_blank"
-            >API source <i class="bi bi-box-arrow-up-right text-primary-300"></i
+            >API source <i class="bi bi-box-arrow-up-right text-gray-400"></i
           ></a>
         </p>
       </Footer>
@@ -71,7 +73,7 @@ export default {
     }
   },
   methods: {
-    search () {
+    fetchData () {
       this.error = false
       this.wait = true
       this.axios
@@ -86,10 +88,17 @@ export default {
           this.wait = false
           this.error = true
         })
+    },
+    search () {
+      this.$router.replace({
+        name: 'entry',
+        params: { entryName: this.entryWord }
+      })
+      this.fetchData()
     }
   },
   mounted () {
-    this.search()
+    this.fetchData()
   }
 }
 </script>
