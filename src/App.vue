@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper relative scrollbar-none">
+  <div class="wrapper scrollbar-none">
     <router-view v-slot="{ Component }">
       <transition name="slide">
         <component :is="Component" />

@@ -1,57 +1,72 @@
 <template>
   <div class="h-screen flex flex-col">
-    <nav class="bg-primary-500 py-4">
-      <div class="max-w-4xl mx-auto">
-        <router-link
-          class="text-xl text-primary-50 font-black"
-          :to="{ name: 'home' }"
-          >KBBI</router-link
-        >
-      </div>
-    </nav>
+    <Navbar>
+      <router-link
+        class="text-xl text-primary-50 dark:text-gray-300 font-black"
+        :to="{ name: 'home' }"
+        >KBBI</router-link
+      >
 
-    <main
-      class="
-        flex flex-col
-        justify-between
-        overflow-y-auto
-        h-screen
-        scroll-smooth
-        scrollbar-track-gray-50 scrollbar-thumb-primary-300 scrollbar-thin
-      "
-    >
-      <header class="mt-10">
-        <div class="max-w-4xl mx-auto pt-10 pb-5 border-b-2">
-          <SearchBar v-model="entryWord" @submit="search" />
+      <ToggleButton @click="toggleTheme" v-model="checked"
+        >Mode gelap</ToggleButton
+      >
+    </Navbar>
+    <Main>
+      <div>
+        <header class="mt-10">
+          <div
+            class="
+              max-w-4xl
+              mx-auto
+              sm:pt-10
+              pb-5
+              border-b-2
+              dark:border-gray-800
+            "
+          >
+            <SearchBar v-model="entryWord" @submit="search" />
+          </div>
+        </header>
+        <div class="max-w-4xl mx-auto pb-20">
+          <Spinner v-if="wait" />
+          <p
+            v-else-if="error"
+            class="
+              text-gray-400
+              dark:text-gray-600
+              text-lg
+              cursor-default
+              text-center
+              px-4
+              mt-20
+            "
+          >
+            Terjadi kesalahan atau data tidak ditemukan
+          </p>
+          <EntrySection v-else :data="results" />
         </div>
-      </header>
-      <div class="max-w-4xl mx-auto pb-20">
-        <Spinner v-if="wait" />
-        <p v-else-if="error" class="text-gray-400 text-lg cursor-default">
-          Terjadi kesalahan atau data tidak ditemukan
-        </p>
-        <EntrySection v-else :data="results" />
       </div>
       <Footer>
-        <p class="text-gray-700 text-sm font-bold">
-          Built with love by Moez |
-          <a
-            href="https://github.com/moez-rd/kbbi"
-            class="hover:underline"
-            target="_blank"
-            ><i class="bi bi-github"></i> Github repository
-            <i class="bi bi-box-arrow-up-right text-gray-400"></i
-          ></a>
-          |
-          <a
-            href="https://github.com/btrianurdin/new-kbbi-api"
-            class="hover:underline"
-            target="_blank"
-            >API source <i class="bi bi-box-arrow-up-right text-gray-400"></i
-          ></a>
-        </p>
+        <div>
+          <p>Built with love by Moez</p>
+        </div>
+        <span class="hidden sm:block">|</span>
+        <div>
+          <FooterLink href="https://github.com/moez-rd/kbbi">
+            <i class="bi bi-github"></i>
+            Github repository
+            <i class="bi bi-box-arrow-up-right text-gray-400"></i>
+          </FooterLink>
+        </div>
+        <span class="hidden sm:block">|</span>
+        <div>
+          <FooterLink href="https://github.com/btrianurdin/new-kbbi-api">
+            API source
+            <i class="bi bi-box-arrow-up-right text-gray-400"></i>
+          </FooterLink>
+        </div>
       </Footer>
-    </main>
+    </Main>
   </div>
 </template>
 
@@ -59,17 +74,31 @@
 import Spinner from '@/components/SpinnerLoader.vue'
 import EntrySection from '@/components/EntrySection.vue'
 import SearchBar from '@/components/SearchBar.vue'
-import Footer from '@/components/TheFooter.vue'
+import Footer from '@/components/EntryFooter.vue'
+import FooterLink from '@/components/FooterLink.vue'
+import Navbar from '@/components/EntryNavbar.vue'
+import Main from '@/components/EntryMain.vue'
+import ToggleButton from '@/components/ToggleButton.vue'
 
 export default {
   name: 'EntryView',
-  components: { EntrySection, Footer, SearchBar, Spinner },
+  components: {
+    EntrySection,
+    Footer,
+    FooterLink,
+    SearchBar,
+    Spinner,
+    Navbar,
+    Main,
+    ToggleButton
+  },
   data () {
     return {
       wait: false,
       error: false,
       results: null,
-      entryWord: this.$route.params.entryName
+      entryWord: this.$route.params.entryName,
+      checked: ''
     }
   },
   methods: {
@@ -95,10 +124,22 @@ export default {
         params: { entryName: this.entryWord }
       })
       this.fetchData()
+    },
+    toggleTheme () {
+      if (this.checked) {
+        document.documentElement.classList.remove('dark')
+      } else {
+        document.documentElement.classList.add('dark')
+      }
     }
   },
   mounted () {
     this.fetchData()
+    if (document.documentElement.classList.contains('dark')) {
+      this.checked = true
+    } else {
+      this.checked = false
+    }
   }
 }
 </script>

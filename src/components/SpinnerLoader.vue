@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center">
+  <div class="flex justify-center items-center mt-20">
     <div
       class="
         spinner-border
