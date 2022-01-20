@@ -1,5 +1,5 @@
 <template>
-  <div class="py-4 border-b-2 border-gray-300 px-10">
+  <div class="py-4 px-10">
     <form @submit.prevent="this.$emit('submit')">
       <div class="flex items-center bg-gray-100 p-1 rounded-md">
         <div class="ml-3"><i class="bi bi-search"></i></div>

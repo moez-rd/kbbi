@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-primary-600 py-8">
+  <footer class="bg-primary-500 py-8 w-full">
     <div class="max-w-4xl mx-auto">
       <slot></slot>
     </div>
