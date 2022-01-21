@@ -110,6 +110,7 @@ export default {
         .then((response) => {
           this.wait = false
           this.results = response.data.data
+          this.manageResults(response.data.data)
           console.log(response.data)
         })
         .catch(() => {
@@ -117,6 +118,41 @@ export default {
           this.wait = false
           this.error = true
         })
+    },
+    manageResults (results) {
+      results.forEach((data) => {
+        data.arti.forEach((meaning) => {
+          // shorten word class
+          // Example: before -> 'adv[Adverbia: kata yang menjelaskan verba, adjektiva, adverbia lain, atau kalimat]'
+          //          will be -> 'adv'
+          const classIndex = meaning.kelas_kata.indexOf('[')
+          meaning.kelas_kata = meaning.kelas_kata.substring(0, classIndex)
+
+          // separate between description and examples
+          // Example: before -> 'ketika, saat: -- engkau datang, saya sedang mandi'
+          //          will be -> ['ketika, saat:', '-- engkau datang, saya sedang mandi']
+          const desIndex = meaning.deskripsi.indexOf(':')
+          let description = meaning.deskripsi
+          let example = ''
+          if (desIndex !== -1) {
+            description = meaning.deskripsi.substring(0, desIndex + 1)
+            example = meaning.deskripsi.substring(desIndex + 1)
+          }
+          meaning.deskripsi = [description, example]
+        })
+
+        // separate between entries with additional words in the entry
+        // Example: before -> 'ma.kin bentuk tidak baku: mangkin, semakin'
+        //          will be -> ['ma.kin', 'bentuk tidak baku: mangkin, semakin']
+        const index = data.lema.indexOf(' ')
+        let entry = data.lema
+        let additionalEntry = ''
+        if (index !== -1) {
+          entry = data.lema.substring(0, index)
+          additionalEntry = data.lema.substring(index)
+        }
+        data.lema = [entry, additionalEntry]
+      })
     },
     search () {
       this.$router.replace({

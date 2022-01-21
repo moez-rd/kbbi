@@ -12,7 +12,9 @@
           @input="$emit('update:modelValue', $event.target.checked)"
         />
         <!-- line -->
-        <div class="block bg-primary-700 dark:bg-gray-700 w-10 h-6 rounded-full"></div>
+        <div
+          class="block bg-primary-700 dark:bg-gray-700 w-10 h-6 rounded-full"
+        ></div>
         <!-- dot -->
         <div
           class="
@@ -29,7 +31,9 @@
         ></div>
       </div>
       <!-- label -->
-      <div class="ml-3 text-gray-100 dark:text-gray-300 text-sm font-medium"><slot></slot></div>
+      <div class="ml-3 text-gray-100 dark:text-gray-300 text-sm font-medium">
+        <slot></slot>
+      </div>
     </label>
   </div>
 </template>
@@ -46,6 +50,6 @@ export default {
 /* Toggle B */
 input:checked ~ .dot {
   transform: translateX(100%);
-  @apply bg-gray-100
+  @apply bg-gray-100;
 }
 </style>
