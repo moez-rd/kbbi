@@ -21,6 +21,7 @@
               sm:pt-10
               pb-5
               border-b-2
+              border-gray-300
               dark:border-gray-800
             "
           >
