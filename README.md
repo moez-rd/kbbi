@@ -1,24 +1,13 @@
-# kbbi
+# KBBI Daring
 
-## Project setup
-```
-npm install
-```
+Ini adalah repositori KBBI Daring yang menggunakan rest API
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Kunjungi situs KBBI Daring: [KBBI Daring](https://kbbidaring.netlify.app/)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Untuk sumber rest API: [btrianurdin/new-kbbi-api](https://github.com/btrianurdin/new-kbbi-api)
 
-### Lints and fixes files
-```
-npm run lint
-```
+Teknologi yang digunakan:
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* Vuejs 3
+* Tailwindcss 3
+* Axios js
