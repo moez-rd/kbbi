@@ -1,5 +1,7 @@
 # KBBI Daring
 
+![KBBI Daring](/public/favicon.ico "KBBI Daring")
+
 Ini adalah repositori KBBI Daring yang menggunakan rest API
 
 Kunjungi situs KBBI Daring: [KBBI Daring](https://kbbidaring.netlify.app/)
