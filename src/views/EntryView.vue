@@ -98,7 +98,7 @@ export default {
       error: false,
       results: null,
       entryWord: this.$route.params.entryName,
-      checked: ''
+      checked: localStorage.theme === 'dark'
     }
   },
   methods: {
@@ -163,18 +163,35 @@ export default {
     },
     toggleTheme () {
       if (this.checked) {
-        document.documentElement.classList.remove('dark')
+        localStorage.theme = 'light'
       } else {
+        localStorage.theme = 'dark'
+      }
+      this.setTheme()
+    },
+    setTheme () {
+      if (localStorage.theme === 'dark') {
         document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
       }
     }
   },
   mounted () {
+    this.setTheme()
     this.fetchData()
-    if (document.documentElement.classList.contains('dark')) {
-      this.checked = true
-    } else {
-      this.checked = false
+  },
+  watch: {
+    setTheme () {
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
     }
   }
 }
