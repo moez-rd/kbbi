@@ -104,9 +104,6 @@ export default {
   },
   methods: {
     fetchData () {
-      if (this.entryWord == 'pistel') {
-        this.results = 'haha'
-      }
       this.error = false
       this.wait = true
       this.axios
