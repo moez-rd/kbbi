@@ -1,18 +1,6 @@
 <template>
-  <div class="flex justify-center items-center mt-20">
-    <div
-      class="
-        spinner-border
-        animate-spin
-        inline-block
-        w-8
-        h-8
-        border-4
-        rounded-full
-        text-primary-500
-      "
-      role="status"
-    >
+  <div class="mt-20 flex items-center justify-center">
+    <div class="spinner-border inline-block h-8 w-8 animate-spin rounded-full border-4 text-primary-500" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>

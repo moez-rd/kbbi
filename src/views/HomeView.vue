@@ -1,13 +1,11 @@
 <template>
-  <div class="bg-primary-500 dark:bg-gray-900 h-screen">
-    <div class="max-w-4xl mx-auto flex flex-col justify-between h-full">
+  <div class="h-screen bg-primary-500 dark:bg-gray-900">
+    <div class="mx-auto flex h-full max-w-4xl flex-col justify-between">
       <div class="flex justify-end p-5">
-        <ToggleButton @click="toggleTheme" v-model="checked"
-          >Mode gelap</ToggleButton
-        >
+        <ToggleButton @click="toggleTheme" v-model="checked">Mode gelap</ToggleButton>
       </div>
       <div>
-        <header class="text-gray-100 dark:text-gray-200 text-center">
+        <header class="text-center text-gray-100 dark:text-gray-200">
           <HeaderTitle />
         </header>
         <main class="mt-7 sm:mt-16">
@@ -24,26 +22,14 @@
           <FooterLink href="https://github.com/moez-rd/kbbi">
             <i class="bi bi-github"></i>
             Github repository
-            <i
-              class="
-                bi bi-box-arrow-up-right
-                text-primary-300
-                dark:text-gray-400
-              "
-            ></i>
+            <i class="bi bi-box-arrow-up-right text-primary-300 dark:text-gray-400"></i>
           </FooterLink>
         </div>
         <span class="hidden sm:block">|</span>
         <div>
           <FooterLink href="https://github.com/btrianurdin/new-kbbi-api">
             API source
-            <i
-              class="
-                bi bi-box-arrow-up-right
-                text-primary-300
-                dark:text-gray-400
-              "
-            ></i>
+            <i class="bi bi-box-arrow-up-right text-primary-300 dark:text-gray-400"></i>
           </FooterLink>
         </div>
       </Footer>
@@ -61,20 +47,20 @@ import ToggleButton from '@/components/ToggleButton.vue'
 export default {
   name: 'HomeView',
   components: { HeaderTitle, SearchBar, Footer, FooterLink, ToggleButton },
-  data () {
+  data() {
     return {
       entryWord: '',
       checked: localStorage.theme === 'dark'
     }
   },
   methods: {
-    search () {
+    search() {
       this.$router.push({
         name: 'entry',
         params: { entryName: this.entryWord }
       })
     },
-    toggleTheme () {
+    toggleTheme() {
       if (this.checked) {
         localStorage.theme = 'light'
       } else {
@@ -82,7 +68,7 @@ export default {
       }
       this.setTheme()
     },
-    setTheme () {
+    setTheme() {
       if (localStorage.theme === 'dark') {
         document.documentElement.classList.add('dark')
       } else {
@@ -90,7 +76,7 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.setTheme()
   }
 }

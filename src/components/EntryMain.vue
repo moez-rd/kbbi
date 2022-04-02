@@ -1,20 +1,5 @@
 <template>
-  <main
-    class="
-      flex flex-col
-      justify-between
-      overflow-y-auto
-      h-screen
-      scroll-smooth
-      scrollbar-track-gray-200
-      dark:scrollbar-track-gray-900
-      scrollbar-thumb-primary-300
-      dark:scrollbar-thumb-gray-700
-      lg:scrollbar-thin
-      bg-gray-200
-      dark:bg-gray-900
-    "
-  >
+  <main class="flex h-screen flex-col justify-between overflow-y-auto scroll-smooth bg-gray-200 scrollbar-track-gray-200 scrollbar-thumb-primary-300 dark:bg-gray-900 dark:scrollbar-thumb-gray-700 dark:scrollbar-track-gray-900 lg:scrollbar-thin">
     <slot></slot>
   </main>
 </template>

@@ -1,49 +1,20 @@
 <template>
-  <div class="h-screen flex flex-col">
+  <div class="flex h-screen flex-col">
     <Navbar>
-      <router-link
-        class="text-xl text-primary-50 dark:text-gray-300 font-black"
-        :to="{ name: 'home' }"
-        >KBBI</router-link
-      >
+      <router-link class="text-xl font-black text-primary-50 dark:text-gray-300" :to="{ name: 'home' }">KBBI</router-link>
 
-      <ToggleButton @click="toggleTheme" v-model="checked"
-        >Mode gelap</ToggleButton
-      >
+      <ToggleButton @click="toggleTheme" v-model="checked">Mode gelap</ToggleButton>
     </Navbar>
     <Main>
       <div>
         <header class="mt-10">
-          <div
-            class="
-              max-w-4xl
-              mx-auto
-              sm:pt-10
-              pb-5
-              border-b-2
-              border-gray-300
-              dark:border-gray-800
-            "
-          >
+          <div class="mx-auto max-w-4xl border-b-2 border-gray-300 pb-5 dark:border-gray-800 sm:pt-10">
             <SearchBar v-model="entryWord" @submit="search" />
           </div>
         </header>
-        <div class="max-w-4xl mx-auto pb-20">
+        <div class="mx-auto max-w-4xl pb-20">
           <Spinner v-if="wait" />
-          <p
-            v-else-if="error"
-            class="
-              text-gray-400
-              dark:text-gray-600
-              text-lg
-              cursor-default
-              text-center
-              px-4
-              mt-20
-            "
-          >
-            Terjadi kesalahan atau data tidak ditemukan
-          </p>
+          <p v-else-if="error" class="mt-20 cursor-default px-4 text-center text-lg text-gray-400 dark:text-gray-600">Terjadi kesalahan atau data tidak ditemukan</p>
           <EntrySection v-else :data="results" />
         </div>
       </div>
@@ -93,7 +64,7 @@ export default {
     Main,
     ToggleButton
   },
-  data () {
+  data() {
     return {
       wait: false,
       error: false,
@@ -103,7 +74,7 @@ export default {
     }
   },
   methods: {
-    fetchData () {
+    fetchData() {
       this.error = false
       this.wait = true
       this.axios
@@ -120,7 +91,7 @@ export default {
           this.error = true
         })
     },
-    manageResults (results) {
+    manageResults(results) {
       results.forEach((data) => {
         data.arti.forEach((meaning) => {
           // shorten word class
@@ -155,14 +126,14 @@ export default {
         data.lema = [entry, additionalEntry]
       })
     },
-    search () {
+    search() {
       this.$router.replace({
         name: 'entry',
         params: { entryName: this.entryWord }
       })
       this.fetchData()
     },
-    toggleTheme () {
+    toggleTheme() {
       if (this.checked) {
         localStorage.theme = 'light'
       } else {
@@ -170,7 +141,7 @@ export default {
       }
       this.setTheme()
     },
-    setTheme () {
+    setTheme() {
       if (localStorage.theme === 'dark') {
         document.documentElement.classList.add('dark')
       } else {
@@ -178,17 +149,13 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.setTheme()
     this.fetchData()
   },
   watch: {
-    setTheme () {
-      if (
-        localStorage.theme === 'dark' ||
-        (!('theme' in localStorage) &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
+    setTheme() {
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark')
       } else {
         document.documentElement.classList.remove('dark')
@@ -198,5 +165,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>
